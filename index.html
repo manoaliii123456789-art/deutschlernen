@@ -499,6 +499,222 @@
       gap: 10px;
     }
 
+    .quick-layer {
+      margin-bottom: 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      background: rgba(2, 6, 23, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      overflow: hidden;
+    }
+
+    .quick-progress-wrap {
+      height: 4px;
+      background: #0b1120;
+      margin: 14px 20px;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .quick-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #22c55e;
+      transition: width 0.35s cubic-bezier(.4, 0, .2, 1);
+      border-radius: 999px;
+    }
+
+    .quick-hero {
+      padding: 12px 20px 4px;
+    }
+
+    .quick-hero-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #f8fafc;
+    }
+
+    .quick-hero-sub {
+      font-size: 0.8rem;
+      opacity: 0.68;
+      margin-top: 4px;
+      color: #cbd5e1;
+    }
+
+    .quick-resume-box {
+      margin-top: 12px;
+      padding: 12px 16px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease;
+      min-height: 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+    }
+
+    .quick-resume-box:active {
+      transform: scale(0.97);
+      background: rgba(34, 197, 94, 0.1);
+    }
+
+    .quick-resume-sub {
+      font-size: 0.7rem;
+      opacity: 0.62;
+    }
+
+    .quick-content {
+      padding: 20px 20px calc(108px + env(safe-area-inset-bottom));
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .quick-primary-actions {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .quick-primary-actions button {
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      color: #e5e7eb;
+      font-size: 0.8rem;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      min-height: 44px;
+    }
+
+    .quick-primary-actions button[data-primary="true"] {
+      background: #22c55e;
+      color: #020617;
+      font-weight: 700;
+    }
+
+    .quick-card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .quick-card-item {
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: #020617;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: transform 0.12s ease, border-color 0.12s ease;
+      text-align: left;
+      min-height: 44px;
+    }
+
+    .quick-card-item:active {
+      transform: scale(0.97);
+      border-color: #22c55e;
+    }
+
+    .quick-sound-block {
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(255, 255, 255, 0.03);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .quick-sound-block span {
+      font-size: 0.8rem;
+      opacity: 0.8;
+      min-width: 52px;
+    }
+
+    .quick-sound-range {
+      width: 100%;
+      accent-color: #22c55e;
+      height: 4px;
+    }
+
+    .quick-bottom-nav {
+      position: sticky;
+      bottom: 0;
+      z-index: 16;
+      width: 100%;
+      padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
+      background: rgba(2, 6, 23, 0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      border-top: 1px solid rgba(148, 163, 184, 0.15);
+    }
+
+    .quick-bottom-nav.hidden-by-system {
+      display: none !important;
+    }
+
+    .quick-nav-item {
+      border: none;
+      background: transparent;
+      color: #9ca3af;
+      font-size: 0.68rem;
+      padding: 4px 0;
+      transition: color 0.2s ease, background 0.2s ease, transform 0.1s;
+      min-height: 44px;
+    }
+
+    .quick-nav-item:active {
+      transform: scale(0.92);
+    }
+
+    .quick-nav-item.active {
+      color: #fff;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.2), transparent);
+    }
+
+    .quick-audio-toast {
+      position: fixed;
+      bottom: calc(90px + env(safe-area-inset-bottom));
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      font-size: 0.8rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      z-index: 55;
+    }
+
+    .quick-audio-toast.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (min-width: 721px) {
+      .quick-bottom-nav {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .quick-primary-actions {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
     .hero-copy {
       display: flex;
       flex-direction: column;
@@ -3245,6 +3461,50 @@
         </div>
       </div>
 
+      <section class="quick-layer" id="quickLayer">
+        <div class="quick-progress-wrap">
+          <div class="quick-progress-bar" id="quickProgressBar"></div>
+        </div>
+
+        <div class="quick-hero">
+          <div class="quick-hero-title">Deutsch lernen</div>
+          <div class="quick-hero-sub">Fokus &amp; Flow - jeden Tag besser.</div>
+
+          <button type="button" class="quick-resume-box" id="quickResumeBox">
+            <span>Continue where you left off</span>
+            <span class="quick-resume-sub" id="quickResumeSub">Lektion 3 - 12 Wörter</span>
+          </button>
+        </div>
+
+        <div class="quick-content">
+          <div class="quick-primary-actions" id="quickPrimaryActions">
+            <button type="button" data-primary="true" data-action="continue">Weiterlernen</button>
+            <button type="button" data-action="daily">Daily</button>
+            <button type="button" data-action="settings">Settings</button>
+          </div>
+
+          <div class="quick-card-grid" id="quickCardGrid">
+            <button type="button" class="quick-card-item" data-category="essen">Essen</button>
+            <button type="button" class="quick-card-item" data-category="alltag">Alltag</button>
+            <button type="button" class="quick-card-item" data-category="reisen">Smalltalk</button>
+            <button type="button" class="quick-card-item" data-category="arbeit">Beruf</button>
+          </div>
+
+          <div class="quick-sound-block">
+            <span>Sound</span>
+            <input type="range" class="quick-sound-range" id="quickSoundRange" min="0.5" max="1.2" step="0.1" value="0.85" />
+          </div>
+        </div>
+
+        <nav class="quick-bottom-nav" id="quickBottomNav" aria-label="Quick Navigation">
+          <button type="button" class="quick-nav-item active" data-quick-screen="dashboard">Home</button>
+          <button type="button" class="quick-nav-item" data-quick-screen="learn">Daily</button>
+          <button type="button" class="quick-nav-item" data-quick-screen="learn">Learn</button>
+          <button type="button" class="quick-nav-item" data-quick-screen="stats">Stats</button>
+          <button type="button" class="quick-nav-item" data-quick-screen="settings">Settings</button>
+        </nav>
+      </section>
+
       <div class="layout-grid">
 
         <!-- LEFT CARD -->
@@ -4094,6 +4354,7 @@
 <div class="loader-overlay" id="loaderOverlay">
   <div class="loader"></div>
 </div>
+<div class="quick-audio-toast" id="quickAudioToast" role="button" tabindex="0" aria-label="Enable sound">🔊 Tap to enable sound</div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.js"></script>
 <script>
 function updateDashboard() {
@@ -4167,6 +4428,113 @@ function stopQuizTimers() {
 function setText(id, value) {
   const el = document.getElementById(id);
   if (el) el.textContent = value;
+}
+
+function setQuickNavActive(screenName) {
+  document.querySelectorAll(".quick-nav-item[data-quick-screen]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.quickScreen === screenName);
+  });
+}
+
+function syncQuickBottomNavVisibility() {
+  const quickBottomNav = document.getElementById("quickBottomNav");
+  const systemTabbar = document.querySelector(".app-tabbar");
+  if (!quickBottomNav) return;
+
+  const systemTabbarVisible = Boolean(systemTabbar) && getComputedStyle(systemTabbar).display !== "none";
+  quickBottomNav.classList.toggle("hidden-by-system", systemTabbarVisible);
+}
+
+function updateQuickLayerProgress() {
+  const user = getCurrentUser();
+  const dailyTotal = Math.max(1, user.dailyWords?.length || user.settings.dailyLimit || 5);
+  const learned = Math.min(dailyTotal, user.learnedToday?.length || 0);
+  const progress = Math.round((learned / dailyTotal) * 100);
+  const progressBar = document.getElementById("quickProgressBar");
+  if (progressBar) progressBar.style.width = `${progress}%`;
+
+  const resumeSub = document.getElementById("quickResumeSub");
+  if (resumeSub) {
+    resumeSub.textContent = `Heute: ${learned}/${dailyTotal} Wörter · ${user.progress.xp || 0} XP`;
+  }
+}
+
+function showQuickAudioToast() {
+  const toast = document.getElementById("quickAudioToast");
+  if (!toast || audioCtx) return;
+  toast.classList.add("visible");
+  setTimeout(() => {
+    if (toast && !audioCtx) toast.classList.remove("visible");
+  }, 4500);
+}
+
+function hideQuickAudioToast() {
+  const toast = document.getElementById("quickAudioToast");
+  if (toast) toast.classList.remove("visible");
+}
+
+function enableQuickSound() {
+  initAudio();
+  ensureAudioReady();
+  hideQuickAudioToast();
+}
+
+function initQuickLayer() {
+  const layer = document.getElementById("quickLayer");
+  if (!layer || layer.dataset.bound === "true") return;
+  layer.dataset.bound = "true";
+
+  const resume = document.getElementById("quickResumeBox");
+  resume?.addEventListener("click", () => {
+    showScreen("learn");
+    toast("Weiterlernen geöffnet", "info");
+  });
+
+  document.getElementById("quickPrimaryActions")?.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-action]");
+    if (!button) return;
+    const action = button.dataset.action;
+    if (action === "continue") showScreen("learn");
+    if (action === "daily") startScopedQuiz(getSelectedCategory(), { source: "default", limit: getCurrentUser().settings.dailyLimit || 5 });
+    if (action === "settings") showScreen("settings");
+  });
+
+  document.getElementById("quickCardGrid")?.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-category]");
+    if (!button) return;
+    startCategoryQuiz(button.dataset.category || "all");
+  });
+
+  document.querySelectorAll(".quick-nav-item[data-quick-screen]").forEach((button) => {
+    button.addEventListener("click", () => showScreen(button.dataset.quickScreen));
+  });
+
+  const quickSoundRange = document.getElementById("quickSoundRange");
+  if (quickSoundRange) {
+    quickSoundRange.value = String(getSpeechRateState());
+    quickSoundRange.addEventListener("input", (event) => {
+      const rate = getControlNumericValue(event.target, getSpeechRateState());
+      applySpeechRateSetting(rate, { persist: false });
+    });
+    quickSoundRange.addEventListener("change", (event) => {
+      const rate = getControlNumericValue(event.target, getSpeechRateState());
+      applySpeechRateSetting(rate);
+    });
+  }
+
+  const quickToast = document.getElementById("quickAudioToast");
+  quickToast?.addEventListener("click", enableQuickSound);
+  quickToast?.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      enableQuickSound();
+    }
+  });
+
+  updateQuickLayerProgress();
+  setQuickNavActive("dashboard");
+  syncQuickBottomNavVisibility();
+  showQuickAudioToast();
 }
 
 function animateLevelPill() {
@@ -4278,6 +4646,8 @@ function createEmptyUserState() {
     studyTime: 0,
     learnedToday: [],
     quizList: [],
+    quizSessionUsedKeys: [],
+    recentWrongKeys: [],
     quizIndex: 0,
     currentWord: null,
     currentSentence: null,
@@ -4366,6 +4736,8 @@ function hydrateUserState(user) {
     "dailyChallenge",
     "studyTime",
     "quizIndex",
+    "quizSessionUsedKeys",
+    "recentWrongKeys",
     "currentWord",
     "currentSentence",
     "currentQuizCategory",
@@ -5175,6 +5547,150 @@ function getWordByKey(key, level = getCurrentUser().profile.level) {
   return getMergedWordCatalog(level).find((word) => getWordKey(word) === key) || null;
 }
 
+const WORD_LEVEL_BY_KEY = (() => {
+  const index = {};
+  Object.entries(WORDS || {}).forEach(([level, list]) => {
+    (list || []).forEach((word) => {
+      const key = getWordKey(word);
+      if (key && !index[key]) index[key] = level;
+    });
+  });
+  return index;
+})();
+
+function shuffleArray(list) {
+  const arr = [...list];
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function getWordLevel(word, fallback = "A1") {
+  if (!word) return fallback;
+  if (word.level && WORDS[word.level]) return word.level;
+  return WORD_LEVEL_BY_KEY[getWordKey(word)] || fallback;
+}
+
+function uniqueWords(words) {
+  const seen = new Set();
+  const out = [];
+  (words || []).forEach((word) => {
+    const key = getWordKey(word);
+    if (!key || seen.has(key)) return;
+    seen.add(key);
+    out.push(word);
+  });
+  return out;
+}
+
+function buildNoRepeatQuiz(words, count, usedKeys) {
+  const source = uniqueWords(words);
+  const result = [];
+
+  while (result.length < count && source.length) {
+    let available = source.filter((word) => !usedKeys.has(getWordKey(word)));
+    if (!available.length) {
+      usedKeys.clear();
+      available = [...source];
+    }
+
+    const chosen = available[Math.floor(Math.random() * available.length)];
+    const key = getWordKey(chosen);
+    if (!key) continue;
+    if (result.some((item) => getWordKey(item) === key)) continue;
+    usedKeys.add(key);
+    result.push(chosen);
+  }
+
+  return result;
+}
+
+function allocateBalancedCounts(total, groups) {
+  const quotas = { A1: 0.4, A2: 0.3, B1: 0.3 };
+  const counts = { A1: 0, A2: 0, B1: 0 };
+
+  Object.keys(counts).forEach((level) => {
+    counts[level] = Math.min(groups[level].length, Math.floor(total * quotas[level]));
+  });
+
+  let assigned = counts.A1 + counts.A2 + counts.B1;
+  let guard = 0;
+  while (assigned < total && guard < 20) {
+    guard += 1;
+    ["A1", "A2", "B1"].forEach((level) => {
+      if (assigned >= total) return;
+      if (counts[level] < groups[level].length) {
+        counts[level] += 1;
+        assigned += 1;
+      }
+    });
+    if (counts.A1 >= groups.A1.length && counts.A2 >= groups.A2.length && counts.B1 >= groups.B1.length) break;
+  }
+
+  return counts;
+}
+
+function buildBalancedQuiz(words, count, usedKeys, fallbackLevel = "A1") {
+  const pool = uniqueWords(words).sort((a, b) => {
+    const scoreA = getCurrentUser().wordMemory[getWordKey(a)]?.score ?? 0;
+    const scoreB = getCurrentUser().wordMemory[getWordKey(b)]?.score ?? 0;
+    return scoreA - scoreB;
+  });
+
+  const groups = { A1: [], A2: [], B1: [] };
+  pool.forEach((word) => {
+    const level = getWordLevel(word, fallbackLevel);
+    if (!groups[level]) groups[fallbackLevel] = groups[fallbackLevel] || [];
+    (groups[level] || groups[fallbackLevel]).push(word);
+  });
+
+  const counts = allocateBalancedCounts(count, groups);
+  const list = [];
+
+  ["A1", "A2", "B1"].forEach((level) => {
+    const picked = buildNoRepeatQuiz(groups[level], counts[level], usedKeys);
+    list.push(...picked);
+  });
+
+  if (list.length < count) {
+    list.push(...buildNoRepeatQuiz(pool.filter((word) => !list.some((it) => sameWordRef(it, word))), count - list.length, usedKeys));
+  }
+
+  return shuffleArray(list).slice(0, count);
+}
+
+function buildSmartQuizList(words, count, user, source = "default") {
+  const usedKeys = new Set(user.quizSessionUsedKeys || []);
+  const fallbackLevel = user.profile?.level || "A1";
+  const basePool = uniqueWords(words);
+
+  if (!basePool.length) return [];
+
+  const recentWrong = (user.recentWrongKeys || [])
+    .map((key) => getWordByKey(key, fallbackLevel))
+    .filter(Boolean);
+
+  const wrongPoolRaw = source === "difficult"
+    ? basePool
+    : user.difficultWords
+      .map((item) => typeof item === "string" ? getWordByKey(item, fallbackLevel) : item)
+      .filter(Boolean);
+  const wrongPool = uniqueWords([...recentWrong, ...wrongPoolRaw]).sort((a, b) => (user.stats.errorsPerWord[getWordKey(b)] || 0) - (user.stats.errorsPerWord[getWordKey(a)] || 0));
+  const wrongCount = source === "default" ? Math.min(3, wrongPool.length, count) : 0;
+  const wrongFirst = buildNoRepeatQuiz(wrongPool, wrongCount, usedKeys);
+
+  const remainingCount = Math.max(0, count - wrongFirst.length);
+  const remainingPool = basePool.filter((word) => !wrongFirst.some((picked) => sameWordRef(picked, word)));
+  const balanced = source === "favorites"
+    ? buildNoRepeatQuiz(remainingPool, remainingCount, usedKeys)
+    : buildBalancedQuiz(remainingPool, remainingCount, usedKeys, fallbackLevel);
+
+  user.quizSessionUsedKeys = Array.from(usedKeys).slice(-300);
+  return shuffleArray([...wrongFirst, ...balanced]).slice(0, count);
+}
+
 function ensureCategoryCollections(user = getCurrentUser()) {
   user.stats.perCategory = { ...createCategoryStore(() => ({ correct: 0, wrong: 0, xp: 0, learned: [] })), ...(user.stats.perCategory || {}) };
   user.favoritesByCategory = { ...createCategoryStore(() => []), ...(user.favoritesByCategory || {}) };
@@ -5427,20 +5943,22 @@ function startScopedQuiz(category = getSelectedCategory(), options = {}) {
   const user = getCurrentUser();
   const mode = options.forcedMode || getActiveExerciseMode();
   const source = options.source || "default";
+  const targetCount = mode === ENHANCED_GAME_MODES.MEMORY ? 4 : (options.limit || 10);
   const words = (options.words && options.words.length)
     ? options.words
     : prepareQuizWords({ category, source, limit: options.limit || 10, modeOverride: mode });
 
   user.currentQuizCategory = category;
   user.currentQuizSource = source;
+  user.quizSessionUsedKeys = [];
 
   user.quizList = mode === ENHANCED_GAME_MODES.FLASHCARD
     ? buildFlashcardDeck(words, Math.max(8, options.limit || 12))
-    : words.slice(0, mode === ENHANCED_GAME_MODES.MEMORY ? 4 : (options.limit || 10));
+    : buildSmartQuizList(words, targetCount, user, source);
 
   if (!user.quizList.length) {
-    const fallbackWords = getMergedWordCatalog(user.profile.level).slice(0, options.limit || 10);
-    user.quizList = fallbackWords.length ? fallbackWords : (WORDS?.A1 || []).slice(0, options.limit || 10);
+    const fallbackWords = getMergedWordCatalog(user.profile.level);
+    user.quizList = buildSmartQuizList(fallbackWords.length ? fallbackWords : (WORDS?.A1 || []), targetCount, user, source);
   }
 
   if (!user.quizList.length) {
@@ -6448,6 +6966,8 @@ function showScreen(name) {
 
   navTabs.forEach(t => t.classList.remove("active"));
   document.querySelectorAll(`.nav-tab[data-screen="${name}"]`).forEach((tab) => tab.classList.add("active"));
+  setQuickNavActive(name);
+  syncQuickBottomNavVisibility();
 
   if (name === "learn") renderWordList();
   if (name === "cards") window.AppModules?.initCards?.({ refresh: true });
@@ -6599,6 +7119,8 @@ function initAudio() {
     soundPromptButton.remove();
     soundPromptButton = null;
   }
+
+  if (audioCtx) hideQuickAudioToast();
 }
 
 document.addEventListener("click", initAudio, { once: true });
@@ -7854,6 +8376,7 @@ function handleWrong(q) {
   if (!listHasWordRef(user.difficultWords, q)) {
     user.difficultWords.push(q);
   }
+  user.recentWrongKeys = [...(user.recentWrongKeys || []).filter((item) => item !== wordKey), wordKey].slice(-40);
   addCategoryDifficultWord(q, user);
 
   updateDailyProgress();
@@ -8114,6 +8637,7 @@ function updateDashboard() {
   updateAdaptiveSummary();
   renderCoachChat();
   updateSystemChrome();
+  updateQuickLayerProgress();
 }
 
 function updateSystemChrome() {
@@ -8545,6 +9069,7 @@ function initEnhancedApp() {
   lockAppGestures();
   initNavigation();
   window.addEventListener("resize", syncAppViewport, { passive: true });
+  window.addEventListener("resize", syncQuickBottomNavVisibility, { passive: true });
   window.visualViewport?.addEventListener("resize", syncAppViewport, { passive: true });
   window.visualViewport?.addEventListener("scroll", syncAppViewport, { passive: true });
   ensureDailyMissions();
@@ -8556,6 +9081,7 @@ function initEnhancedApp() {
   }
   syncCategoryUI();
   initEnhancedControls();
+  initQuickLayer();
   renderCoachChat();
   updateDashboard();
   renderWordList();
