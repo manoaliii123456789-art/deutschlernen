@@ -3310,6 +3310,40 @@
     opacity: 0;
   }
 }
+
+/* =========================================
+   HYBRID LAYOUT (iPhone-first + Desktop Centered)
+========================================= */
+html,
+body {
+  min-height: 100dvh;
+}
+
+body {
+  margin: 0;
+  background: #020617;
+  padding: 0;
+}
+
+.app-shell {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  height: 100dvh;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@media (max-width: 768px) {
+  .app-shell {
+    width: 100%;
+    max-width: 430px !important;
+    margin: 0 auto;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
   </style>
 </head>
 <body>
@@ -3317,7 +3351,7 @@
 <!--        APP SHELL UI       -->
 <!-- ========================= -->
 
-<div class="app-shell">
+<div class="app-shell app">
 
   <div class="ios-status-strip">
     <span id="iosClock">9:41</span>
