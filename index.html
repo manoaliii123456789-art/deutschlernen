@@ -64,6 +64,14 @@
       padding: 0;
     }
 
+    img,
+    svg,
+    canvas,
+    video {
+      max-width: 100%;
+      height: auto;
+    }
+
     /* =========================================
        🌌 1. GLOBAL BACKGROUND (ULTRA MODERN)
     ========================================= */
@@ -214,6 +222,7 @@
     .screen {
       flex: 1;
       min-height: 0;
+      min-width: 0;
       animation: fadeIn 0.35s ease;
     }
 
@@ -247,10 +256,32 @@
        🔊 8. MICRO INTERACTIONS
     ========================================= */
 
+    button,
+    .btn,
+    .small-btn,
+    .nav-tab,
+    .tabbar-btn,
+    .quiz-option,
+    .fc-btn {
+      min-height: 44px;
+      touch-action: manipulation;
+    }
+
+    button,
+    .btn,
+    .small-btn,
+    .quiz-option,
+    .nav-tab,
+    .tabbar-btn {
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+        background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+      will-change: transform;
+    }
+
     button:active,
     .btn:active,
     .word-card:active {
-      transform: scale(0.96);
+      transform: scale(0.97);
     }
 
     @media (min-width: 900px) {
@@ -389,18 +420,26 @@
       background: transparent;
       color: var(--text-soft);
       font-size: 0.75rem;
-      padding: 5px 10px;
+      padding: 8px 12px;
       border-radius: var(--radius-pill);
       cursor: pointer;
       transition: background var(--transition-fast), color var(--transition-fast),
         transform var(--transition-fast);
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 4px;
+      line-height: 1;
     }
 
     .nav-tab span.icon {
-      font-size: 0.9rem;
+      font-size: 1rem;
+      width: 1.15em;
+      height: 1.15em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
     }
 
     .nav-tab.active {
@@ -930,7 +969,7 @@
 
     .tabbar-btn {
       min-width: 0;
-      padding: 8px 4px;
+      padding: 8px 6px;
       border: none;
       background: transparent;
       color: var(--text-soft);
@@ -942,10 +981,17 @@
       gap: 4px;
       font-size: 0.68rem;
       cursor: pointer;
+      min-height: 46px;
     }
 
     .tabbar-btn .icon {
-      font-size: 1rem;
+      font-size: 1.08rem;
+      width: 1.2em;
+      height: 1.2em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
     }
 
     .tabbar-btn.active {
@@ -986,7 +1032,7 @@
       }
 
       body {
-        padding: 0;
+        padding: env(safe-area-inset-top) 0 0;
         padding-bottom: 0;
         overflow: hidden;
       }
@@ -1015,6 +1061,12 @@
         padding: 8px 8px calc(12px + env(safe-area-inset-bottom));
         overflow-x: hidden;
         overflow-y: auto;
+      }
+
+      body::before,
+      body::after {
+        filter: blur(80px);
+        opacity: 0.5;
       }
 
       .layout-grid {
@@ -2203,7 +2255,7 @@
       border-radius: var(--radius-md);
       border: 1px solid rgba(31, 41, 55, 0.95);
       background: rgba(15, 23, 42, 0.98);
-      padding: 6px 7px;
+      padding: 10px 12px;
       font-size: 0.8rem;
       color: var(--text);
       cursor: pointer;
@@ -2223,6 +2275,7 @@
       border-color: var(--accent);
       color: #bbf7d0;
       box-shadow: 0 10px 24px rgba(22, 163, 74, 0.7);
+      transform: scale(0.985);
     }
 
     .quiz-option.wrong {
@@ -2230,6 +2283,33 @@
       border-color: var(--danger);
       color: #fecaca;
       box-shadow: 0 10px 24px rgba(248, 113, 113, 0.7);
+      transform: scale(0.985);
+    }
+
+    .sound-enable-btn {
+      position: fixed;
+      right: 14px;
+      bottom: calc(env(safe-area-inset-bottom) + 80px);
+      z-index: 60;
+      border: 1px solid rgba(56, 189, 248, 0.6);
+      background: rgba(15, 23, 42, 0.94);
+      color: #e0f2fe;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      box-shadow: 0 12px 32px rgba(2, 6, 23, 0.5);
+      min-height: 44px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
 
     .quiz-input-row {
@@ -3519,11 +3599,6 @@
           <!-- Multiple Choice -->
           <div class="quiz-options" id="quizOptions"></div>
 
-          <div class="mini-quiz-block">
-            <div class="question">Lade Frage...</div>
-            <div class="answers"></div>
-          </div>
-
           <!-- Text Input -->
           <div class="quiz-input-row hidden" id="quizInputRow">
             <input type="text" id="quizInput" class="quiz-input" placeholder="Antwort eingeben..." />
@@ -4019,7 +4094,7 @@
 <div class="loader-overlay" id="loaderOverlay">
   <div class="loader"></div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.js"></script>
 <script>
 function updateDashboard() {
   const user = JSON.parse(localStorage.getItem("appState"))?.users?.default;
@@ -5083,7 +5158,9 @@ function listHasWordRef(list, word) {
 
 function getMergedWordCatalog(level) {
   const user = getCurrentUser();
-  const catalog = [...(user.words[level] || []), ...ALL_TOPIC_WORDS];
+  const safeLevel = level && user.words?.[level] ? level : "A1";
+  const levelWords = user.words?.[safeLevel] || WORDS[safeLevel] || WORDS.A1 || [];
+  const catalog = [...levelWords, ...ALL_TOPIC_WORDS];
   const seen = new Set();
 
   return catalog.filter((word) => {
@@ -5274,6 +5351,14 @@ function prepareQuizWords({ category = getSelectedCategory(), source = "default"
     pool = getCategoryWordPool(category, user.profile.level);
   }
 
+  if (!pool.length) {
+    pool = getMergedWordCatalog(user.profile.level);
+  }
+
+  if (!pool.length) {
+    pool = WORDS?.A1 || [];
+  }
+
   return [...pool].slice(0, take);
 }
 
@@ -5342,7 +5427,9 @@ function startScopedQuiz(category = getSelectedCategory(), options = {}) {
   const user = getCurrentUser();
   const mode = options.forcedMode || getActiveExerciseMode();
   const source = options.source || "default";
-  const words = options.words || prepareQuizWords({ category, source, limit: options.limit || 10, modeOverride: mode });
+  const words = (options.words && options.words.length)
+    ? options.words
+    : prepareQuizWords({ category, source, limit: options.limit || 10, modeOverride: mode });
 
   user.currentQuizCategory = category;
   user.currentQuizSource = source;
@@ -5350,6 +5437,12 @@ function startScopedQuiz(category = getSelectedCategory(), options = {}) {
   user.quizList = mode === ENHANCED_GAME_MODES.FLASHCARD
     ? buildFlashcardDeck(words, Math.max(8, options.limit || 12))
     : words.slice(0, mode === ENHANCED_GAME_MODES.MEMORY ? 4 : (options.limit || 10));
+
+  if (!user.quizList.length) {
+    const fallbackWords = getMergedWordCatalog(user.profile.level).slice(0, options.limit || 10);
+    user.quizList = fallbackWords.length ? fallbackWords : (WORDS?.A1 || []).slice(0, options.limit || 10);
+  }
+
   if (!user.quizList.length) {
     toast(
       source === "difficult"
@@ -6484,6 +6577,7 @@ const AudioContextClass = window.AudioContext || window.webkitAudioContext;
 let audioCtx;
 let audioMaster;
 let audioCompressor;
+let soundPromptButton = null;
 
 function initAudio() {
   if (!audioCtx && AudioContextClass) {
@@ -6500,9 +6594,15 @@ function initAudio() {
     audioMaster.connect(audioCompressor);
     audioCompressor.connect(audioCtx.destination);
   }
+
+  if (audioCtx && soundPromptButton) {
+    soundPromptButton.remove();
+    soundPromptButton = null;
+  }
 }
 
 document.addEventListener("click", initAudio, { once: true });
+document.addEventListener("touchstart", initAudio, { once: true, passive: true });
 const UI_SOUND_FILES = {
   click: "./assets/sounds/ui-click.wav",
   correct: "./assets/sounds/ui-correct.wav",
@@ -6515,6 +6615,19 @@ function ensureAudioReady() {
   initAudio();
   if (!audioCtx || audioCtx.state !== "suspended") return;
   audioCtx.resume().catch(() => {});
+}
+
+function ensureSoundPrompt() {
+  if (audioCtx || soundPromptButton || !document.body) return;
+  soundPromptButton = document.createElement("button");
+  soundPromptButton.type = "button";
+  soundPromptButton.className = "sound-enable-btn";
+  soundPromptButton.textContent = "Tap to enable sound";
+  soundPromptButton.addEventListener("click", () => {
+    initAudio();
+    ensureAudioReady();
+  });
+  document.body.appendChild(soundPromptButton);
 }
 
 ["pointerdown", "touchstart", "keydown"].forEach((eventName) => {
@@ -7342,7 +7455,9 @@ function resetQuizPanels() {
 }
 
 function getDistractors(q, field) {
-  return getSmartWords()
+  const smartPool = getSmartWords();
+  const fallbackPool = getMergedWordCatalog(getCurrentUser().profile.level);
+  return (smartPool.length ? smartPool : fallbackPool)
     .filter((word) => word.de !== q.de)
     .sort(() => Math.random() - 0.5)
     .slice(0, 3)
@@ -7565,6 +7680,16 @@ function loadListeningQuestion() {
 
 function loadQuizQuestion() {
   const user = getCurrentUser();
+  if (!Array.isArray(user.quizList) || !user.quizList.length) {
+    const fallback = prepareQuizWords({
+      category: user.currentQuizCategory || "all",
+      source: user.currentQuizSource || "default",
+      limit: 10
+    });
+    user.quizList = fallback.length ? fallback : (WORDS?.A1 || []).slice(0, 10);
+    user.quizIndex = 0;
+  }
+
   const q = user.quizList[user.quizIndex];
   const mode = getActiveExerciseMode();
   const direction = getActiveDirection();
@@ -8437,6 +8562,7 @@ function initEnhancedApp() {
   renderQuizScope();
   renderStats();
   renderSettings();
+  ensureSoundPrompt();
   updateSystemChrome();
   safeInterval(updateSystemChrome, 60000);
   if (user.settings.reminders && "Notification" in window && Notification.permission === "granted") {
@@ -8448,40 +8574,6 @@ function initEnhancedApp() {
     });
   }
 
-  const quizData = [
-    {
-      question: "Hallo",
-      correct: "مرحبا",
-      options: ["مرحبا", "شكرا", "وداعا"]
-    }
-  ];
-
-  function renderQuiz() {
-    const q = quizData[0];
-    const questionEl = document.querySelector(".question");
-    const container = document.querySelector(".answers");
-    if (!q || !questionEl || !container) return;
-
-    questionEl.textContent = q.question;
-    container.innerHTML = "";
-
-    q.options.forEach((opt) => {
-      const btn = document.createElement("button");
-      btn.textContent = opt;
-
-      btn.onclick = () => {
-        if (opt === q.correct) {
-          btn.style.background = "green";
-        } else {
-          btn.style.background = "red";
-        }
-      };
-
-      container.appendChild(btn);
-    });
-  }
-
-  renderQuiz();
   runOnboardingIfNeeded();
   window.__legacyAppInitialized = true;
 }
