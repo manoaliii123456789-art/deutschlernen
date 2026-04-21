@@ -3446,7 +3446,7 @@
     <!-- ========================= -->
     <section id="screen-cards" class="screen hidden">
       <div class="card-container">
-        <div id="flashcard" class="flashcard">
+        <div id="flashcard" class="flashcard" onclick="flipCard()">
           <div class="card-front"></div>
           <div class="card-back"></div>
         </div>
@@ -6779,6 +6779,97 @@ function showLoveMessage() {
   osc.start();
   osc.stop(audioCtx.currentTime + 0.3);
 }
+
+/* ============================================================
+   CARDS SCREEN — Flashcard Module
+============================================================ */
+(function () {
+  const FC_WORDS = (window.WORDS && window.WORDS.A1)
+    ? window.WORDS.A1
+    : [
+      { de: "Hallo", ar: "مرحبا", ex: "" },
+      { de: "Danke", ar: "شكرا", ex: "" },
+      { de: "Bitte", ar: "من فضلك", ex: "" },
+      { de: "Ja", ar: "نعم", ex: "" },
+      { de: "Nein", ar: "لا", ex: "" }
+    ];
+
+  let cards = [];
+  let current = 0;
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function renderCard() {
+    const card = cards[current];
+    if (!card) return;
+    const front = document.querySelector("#flashcard .card-front");
+    const back  = document.querySelector("#flashcard .card-back");
+    const hint  = document.getElementById("cardsHint");
+    if (front) front.textContent = card.de;
+    if (back)  back.textContent  = card.ar;
+    if (hint)  hint.textContent  = `${current + 1} / ${cards.length}${card.ex ? " — " + card.ex : ""}`;
+  }
+
+  window.flipCard = function () {
+    const fc = document.getElementById("flashcard");
+    if (fc) fc.classList.toggle("flip");
+  };
+
+  window.nextCard = function () {
+    current = (current + 1) % cards.length;
+    renderCard();
+    const fc = document.getElementById("flashcard");
+    if (fc) fc.classList.remove("flip");
+  };
+
+  window.markEasy = function () {
+    window.nextCard();
+  };
+
+  window.markHard = function () {
+    // put the card back 3 positions later so it repeats soon
+    const hard = cards.splice(current, 1)[0];
+    const insertAt = Math.min(current + 3, cards.length);
+    cards.splice(insertAt, 0, hard);
+    // stay on same index (new card slid in)
+    if (current >= cards.length) current = 0;
+    renderCard();
+    const fc = document.getElementById("flashcard");
+    if (fc) fc.classList.remove("flip");
+  };
+
+  window.AppModules = window.AppModules || {};
+  window.AppModules.initCards = function (opts) {
+    if (opts && opts.refresh) {
+      const level = window.getCurrentUser
+        ? (window.getCurrentUser().profile?.level || "A1")
+        : "A1";
+      const src = (window.WORDS && window.WORDS[level]) ? window.WORDS[level] : FC_WORDS;
+      cards = shuffle(src);
+      current = 0;
+    }
+    renderCard();
+    const fc = document.getElementById("flashcard");
+    if (fc) fc.classList.remove("flip");
+  };
+
+  // Init on first load if cards screen is visible
+  document.addEventListener("DOMContentLoaded", function () {
+    const level = window.getCurrentUser
+      ? (window.getCurrentUser()?.profile?.level || "A1")
+      : "A1";
+    const src = (window.WORDS && window.WORDS[level]) ? window.WORDS[level] : FC_WORDS;
+    cards = shuffle(src);
+    renderCard();
+  });
+}());
 
 </script>
 <script>
