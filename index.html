@@ -213,6 +213,14 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
+      transition: transform 0.24s ease, opacity 0.24s ease, background 0.24s ease;
+      transform-origin: top center;
+    }
+
+    .app-header.compact {
+      transform: scale(0.92);
+      opacity: 0.9;
+      background: rgba(2, 6, 23, 0.72);
     }
 
     /* =========================================
@@ -1386,8 +1394,8 @@
     }
 
     .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 25px 70px rgba(0,0,0,0.95);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
     }
 
     .card::before {
@@ -3004,6 +3012,16 @@
       flex-wrap: wrap;
     }
 
+    .bottom-floating {
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .bottom-floating.hide {
+      transform: translateY(40px);
+      opacity: 0;
+      pointer-events: none;
+    }
+
     .app-footer-left {
       display: flex;
       align-items: center;
@@ -3328,8 +3346,8 @@
     <div class="header-right">
       <div class="speech-rate-control">
         <span>🎤</span>
-        <input type="range" id="speechRateControl" min="0.5" max="1.2" step="0.1" value="0.85">
-        <span class="speech-rate-label" id="speechRateLabel">0.85x</span>
+        <input type="range" id="speechRateControl" min="0.4" max="1.2" step="0.05" value="0.9">
+        <span class="speech-rate-label" id="speechRateLabel">0.9x</span>
       </div>
 
       <div class="level-pill">
@@ -3492,7 +3510,7 @@
 
           <div class="quick-sound-block">
             <span>Sound</span>
-            <input type="range" class="quick-sound-range" id="quickSoundRange" min="0.5" max="1.2" step="0.1" value="0.85" />
+            <input type="range" class="quick-sound-range" id="quickSoundRange" min="0.4" max="1.2" step="0.05" value="0.9" />
           </div>
         </div>
 
@@ -4215,7 +4233,7 @@
                 <strong>Speech Rate</strong>
                 <span>Steuert die Geschwindigkeit des deutschen Audios.</span>
               </div>
-              <input class="settings-input" id="settingsSpeechRateValue" type="number" min="0.5" max="1.2" step="0.1" />
+              <input class="settings-input" id="settingsSpeechRateValue" type="number" min="0.4" max="1.2" step="0.05" />
             </div>
 
             <div class="settings-row">
@@ -4260,7 +4278,7 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="app-footer">
+  <footer class="app-footer bottom-floating">
     <div class="app-footer-left">
       <div class="footer-pill"><span class="icon">📱</span> Mobile‑first</div>
       <div class="footer-pill"><span class="icon">💾</span> Offline Speicherung</div>
@@ -4386,7 +4404,7 @@ let progressChart = null;
 const state = {
   currentUserId: null,
   users: {},
-  speechRate: 0.85
+  speechRate: 0.9
 };
 
 window.state = state;
@@ -4579,7 +4597,7 @@ function createEmptyUserState() {
     settings: {
       sound: true,
       haptics: true,
-      speechRate: 0.85,
+      speechRate: 0.9,
       interfaceLang: "de",
       theme: "auto",
       selectedCategory: "all",
@@ -4789,7 +4807,7 @@ function loadState() {
     console.error("Load Error", e);
   }
 
-  state.speechRate = normalizeSpeechRate(state.speechRate, 0.85);
+  state.speechRate = normalizeSpeechRate(state.speechRate, 0.9);
 }
 
 /* ------------------------------------------------------------
@@ -6136,14 +6154,14 @@ function getPreferredGermanVoice() {
 function normalizeSpeechRate(value, fallback = 0.85) {
   const parsed = parseFloat(value);
   const safeValue = Number.isFinite(parsed) ? parsed : fallback;
-  return Math.max(0.35, Math.min(1.2, safeValue));
+  return Math.max(0.4, Math.min(1.2, safeValue));
 }
 
 function getSpeechRateState() {
   const user = getCurrentUser();
   const normalizedRate = normalizeSpeechRate(
     typeof state.speechRate !== "undefined" ? state.speechRate : user.settings.speechRate,
-    user.settings.speechRate || 0.85
+    user.settings.speechRate || 0.9
   );
 
   state.speechRate = normalizedRate;
@@ -6153,7 +6171,7 @@ function getSpeechRateState() {
 }
 
 function formatSpeechRateLabel(rate) {
-  return `${normalizeSpeechRate(rate).toFixed(1)}x`;
+  return `${parseFloat(normalizeSpeechRate(rate).toFixed(2))}x`;
 }
 
 function getControlNumericValue(control, fallback) {
@@ -6180,9 +6198,27 @@ function syncSpeechRateControls(rate) {
   const settingsInput = document.getElementById("settingsSpeechRateValue");
   const headerLabel = document.getElementById("speechRateLabel");
 
-  if (headerSlider) headerSlider.value = String(Math.max(0.5, normalizedRate));
-  if (settingsInput) settingsInput.value = String(Math.max(0.5, normalizedRate));
+  if (headerSlider) headerSlider.value = String(Math.max(0.4, normalizedRate));
+  if (settingsInput) settingsInput.value = String(Math.max(0.4, normalizedRate));
   if (headerLabel) headerLabel.textContent = formatSpeechRateLabel(normalizedRate);
+}
+
+function initScrollResponsiveChrome() {
+  const appMain = document.querySelector(".app-main");
+  const header = document.querySelector(".app-header");
+  const floating = document.querySelector(".bottom-floating");
+  if (!appMain) return;
+  if (appMain.dataset.chromeBound === "true") return;
+  appMain.dataset.chromeBound = "true";
+
+  const syncChromeState = () => {
+    const y = appMain.scrollTop;
+    if (header) header.classList.toggle("compact", y > 30);
+    if (floating) floating.classList.toggle("hide", y > 50);
+  };
+
+  appMain.addEventListener("scroll", syncChromeState, { passive: true });
+  syncChromeState();
 }
 
 function speak(text, options = {}) {
@@ -9066,6 +9102,7 @@ function initEnhancedApp() {
   const user = getCurrentUser();
   ensureCategoryCollections(user);
   syncAppViewport();
+  initScrollResponsiveChrome();
   lockAppGestures();
   initNavigation();
   window.addEventListener("resize", syncAppViewport, { passive: true });
