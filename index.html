@@ -3519,6 +3519,11 @@
           <!-- Multiple Choice -->
           <div class="quiz-options" id="quizOptions"></div>
 
+          <div class="mini-quiz-block">
+            <div class="question">Lade Frage...</div>
+            <div class="answers"></div>
+          </div>
+
           <!-- Text Input -->
           <div class="quiz-input-row hidden" id="quizInputRow">
             <input type="text" id="quizInput" class="quiz-input" placeholder="Antwort eingeben..." />
@@ -6476,11 +6481,28 @@ function toast(msg, type = "info") {
    7) SOUND EFFEKTE
 ------------------------------------------------------------ */
 const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-const audioCtx = AudioContextClass
-  ? new AudioContextClass({ latencyHint: "interactive", sampleRate: 48000 })
-  : null;
-const audioMaster = audioCtx ? audioCtx.createGain() : null;
-const audioCompressor = audioCtx ? audioCtx.createDynamicsCompressor() : null;
+let audioCtx;
+let audioMaster;
+let audioCompressor;
+
+function initAudio() {
+  if (!audioCtx && AudioContextClass) {
+    audioCtx = new AudioContextClass();
+    audioMaster = audioCtx.createGain();
+    audioCompressor = audioCtx.createDynamicsCompressor();
+
+    audioMaster.gain.value = 0.22;
+    audioCompressor.threshold.value = -18;
+    audioCompressor.knee.value = 18;
+    audioCompressor.ratio.value = 2.5;
+    audioCompressor.attack.value = 0.003;
+    audioCompressor.release.value = 0.15;
+    audioMaster.connect(audioCompressor);
+    audioCompressor.connect(audioCtx.destination);
+  }
+}
+
+document.addEventListener("click", initAudio, { once: true });
 const UI_SOUND_FILES = {
   click: "./assets/sounds/ui-click.wav",
   correct: "./assets/sounds/ui-correct.wav",
@@ -6489,18 +6511,8 @@ const UI_SOUND_FILES = {
 // disabled sound
 const uiSoundPool = {};
 
-if (audioCtx && audioMaster && audioCompressor) {
-  audioMaster.gain.value = 0.22;
-  audioCompressor.threshold.value = -18;
-  audioCompressor.knee.value = 18;
-  audioCompressor.ratio.value = 2.5;
-  audioCompressor.attack.value = 0.003;
-  audioCompressor.release.value = 0.15;
-  audioMaster.connect(audioCompressor);
-  audioCompressor.connect(audioCtx.destination);
-}
-
 function ensureAudioReady() {
+  initAudio();
   if (!audioCtx || audioCtx.state !== "suspended") return;
   audioCtx.resume().catch(() => {});
 }
@@ -8435,6 +8447,41 @@ function initEnhancedApp() {
       }, 15000);
     });
   }
+
+  const quizData = [
+    {
+      question: "Hallo",
+      correct: "مرحبا",
+      options: ["مرحبا", "شكرا", "وداعا"]
+    }
+  ];
+
+  function renderQuiz() {
+    const q = quizData[0];
+    const questionEl = document.querySelector(".question");
+    const container = document.querySelector(".answers");
+    if (!q || !questionEl || !container) return;
+
+    questionEl.textContent = q.question;
+    container.innerHTML = "";
+
+    q.options.forEach((opt) => {
+      const btn = document.createElement("button");
+      btn.textContent = opt;
+
+      btn.onclick = () => {
+        if (opt === q.correct) {
+          btn.style.background = "green";
+        } else {
+          btn.style.background = "red";
+        }
+      };
+
+      container.appendChild(btn);
+    });
+  }
+
+  renderQuiz();
   runOnboardingIfNeeded();
   window.__legacyAppInitialized = true;
 }
