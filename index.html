@@ -511,7 +511,7 @@
 
     .quick-layer {
       margin-bottom: 12px;
-      padding: 20px 20px calc(124px + env(safe-area-inset-bottom));
+      padding: 20px;
       border-radius: 24px;
       border: 1px solid rgba(255, 255, 255, 0.06);
       background: linear-gradient(180deg, rgba(11, 18, 32, 0.96) 0%, rgba(2, 6, 23, 0.92) 100%);
@@ -771,12 +771,14 @@
       transform: none;
       z-index: 16;
       width: 100%;
-      padding: 12px 0 calc(12px + env(safe-area-inset-bottom));
+      height: 65px;
+      padding: 0 0 env(safe-area-inset-bottom);
       background: rgba(2, 6, 23, 0.85);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: center;
       border-top: 1px solid rgba(255, 255, 255, 0.06);
     }
 
@@ -1300,7 +1302,8 @@
       position: sticky;
       bottom: 0;
       z-index: 25;
-      padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+      height: 65px;
+      padding: 0 12px env(safe-area-inset-bottom);
       background: linear-gradient(180deg, rgba(2, 6, 23, 0), rgba(2, 6, 23, 0.95) 35%);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
@@ -1408,7 +1411,7 @@
       }
 
       .app-main {
-        padding: 8px 8px calc(12px + env(safe-area-inset-bottom));
+        padding: 8px;
         overflow-x: hidden;
         overflow-y: auto;
       }
@@ -3457,7 +3460,7 @@ body {
 
 .app,
 .app-shell {
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   margin: 0;
   max-width: none;
@@ -3469,14 +3472,14 @@ body {
   background: transparent;
   padding-left: 16px;
   padding-right: 16px;
-  padding-top: calc(10px + env(safe-area-inset-top));
-  padding-bottom: calc(100px + env(safe-area-inset-bottom));
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: calc(70px + env(safe-area-inset-bottom));
 }
 
 @media (max-width: 768px) {
   .app,
   .app-shell {
-    width: 100vw;
+    width: 100%;
     min-height: 100vh;
     margin: 0;
     max-width: none;
@@ -3488,8 +3491,8 @@ body {
     background: transparent;
     padding-left: 16px;
     padding-right: 16px;
-    padding-top: calc(10px + env(safe-area-inset-top));
-    padding-bottom: calc(100px + env(safe-area-inset-bottom));
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: calc(70px + env(safe-area-inset-bottom));
   }
 }
   </style>
@@ -3500,14 +3503,6 @@ body {
 <!-- ========================= -->
 
 <div class="app-shell app">
-
-  <div class="ios-status-strip">
-    <span id="iosClock">9:41</span>
-    <span>DeutschLernen Pro</span>
-    <span id="iosStatusMeta">LTE • 100%</span>
-  </div>
-
-  <div class="ios-dynamic-island"></div>
 
   <!-- HEADER -->
   <header class="app-header header">
